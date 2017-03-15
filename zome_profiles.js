@@ -12,7 +12,7 @@ function isRegistered() {
   var registered_users = getmeta(App.DNAHash, "registered_users")
   if( registered_users instanceof Error) return false
   registered_users = registered_users.Entries
-  var agent_id = App.Agent.Hash
+  var agent_id = App.Key.Hash
   for(var i=0; i < registered_users.length; i++) {
     var profile = JSON.parse(registered_users[i]["E"]["C"])
     debug("Registered user "+i+" is " + profile.username)
@@ -32,7 +32,7 @@ function myProfile() {
   var registered_users = getmeta(App.DNAHash, "registered_users");
   if( registered_users instanceof Error ) return false
   registered_users = registered_users.Entries
-  var agent_id = App.Agent.Hash
+  var agent_id = App.Key.Hash
   for(var i=0; i < registered_users.length; i++) {
     var profile = JSON.parse(registered_users[i]["E"]["C"])
     debug("Registered user "+i+" is " + profile.username)
