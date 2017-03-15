@@ -1,7 +1,6 @@
 expose("register", HC.JSON);
 function register(x) {
-  debug(App.Agent.Hash)
-  x.agent_id = App.Agent.Hash
+  x.agent_id = App.Key.Hash
   var key = commit("profile", x);
   put(key)
   putmeta(App.DNAHash, key, "registered_users")
@@ -59,8 +58,6 @@ function validate(entry_type, entry, validation_props) {
   if( validation_props.MetaTag ) { //validating a putmeta
     return true;
   } else { //validating a commit or put
-    debug("source:" + validation_props.Sources + " agent:" + entry.agent_id)
-    debug("key: " + App.Agent.Key)
     return validation_props.Sources[0] == entry.agent_id
   }
 }
