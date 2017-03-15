@@ -1,7 +1,7 @@
 // Get list of chat Spaces / Rooms / Channels
 expose("listRooms", HC.JSON);
 function listRooms() {
-  var rooms = getmeta(property("_id"), "room");
+  var rooms = getmeta(App.DNAHash, "room");
   if( rooms instanceof Error ){
       return []
   } else {
@@ -20,13 +20,13 @@ expose("newRoom", HC.JSON);
 function newRoom(x) {
   var key = commit("room", x);
   put(key)
-  putmeta(property("_id"), key, "room")
+  putmeta(App.DNAHash, key, "room")
   return key
 }
 
 function isAllowed(author) {
   //debug("Checking if "+author+" is a registered user...")
-  var registered_users = getmeta(property("_id"), "registered_users")
+  var registered_users = getmeta(App.DNAHash, "registered_users")
   if( registered_users instanceof Error ) return false
   registered_users = registered_users.Entries
   //debug("Registered users are: "+JSON.stringify(registered_users))

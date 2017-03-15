@@ -39,7 +39,7 @@ function modMessage(x, old_message) {
 
 function isAllowed(author) {
   debug("Checking if "+author+" is a registered user...")
-  var registered_users = getmeta(property("_id"), "registered_users");
+  var registered_users = getmeta(App.DNAHash, "registered_users");
   if( registered_users instanceof Error ) return false;
   registered_users = registered_users.Entries
   for(var i=0; i < registered_users.length; i++) {
@@ -51,7 +51,7 @@ function isAllowed(author) {
 }
 
 function isValidRoom(room) {
-  var rooms = getmeta(property("_id"), "room");
+  var rooms = getmeta(App.DNAHash, "room");
   if( rooms instanceof Error ){
       return false
   } else {

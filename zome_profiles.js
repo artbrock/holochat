@@ -1,18 +1,19 @@
 expose("register", HC.JSON);
 function register(x) {
-  x.agent_id = property("_agent_id")
+  debug(App.Agent.Hash)
+  x.agent_id = App.Agent.Hash
   var key = commit("profile", x);
   put(key)
-  putmeta(property("_id"), key, "registered_users")
+  putmeta(App.DNAHash, key, "registered_users")
   return key
 }
 
 expose("isRegistered", HC.JSON);
 function isRegistered() {
-  var registered_users = getmeta(property("_id"), "registered_users")
+  var registered_users = getmeta(App.DNAHash, "registered_users")
   if( registered_users instanceof Error) return false
   registered_users = registered_users.Entries
-  var agent_id = property("_agent_id")
+  var agent_id = App.Agent.Hash
   for(var i=0; i < registered_users.length; i++) {
     var profile = JSON.parse(registered_users[i]["E"]["C"])
     debug("Registered user "+i+" is " + profile.username)
@@ -29,10 +30,10 @@ function getProfile(x) {
 
 expose("myProfile", HC.JSON);
 function myProfile() {
-  var registered_users = getmeta(property("_id"), "registered_users");
+  var registered_users = getmeta(App.DNAHash, "registered_users");
   if( registered_users instanceof Error ) return false
   registered_users = registered_users.Entries
-  var agent_id = property("_agent_id")
+  var agent_id = App.Agent.Hash
   for(var i=0; i < registered_users.length; i++) {
     var profile = JSON.parse(registered_users[i]["E"]["C"])
     debug("Registered user "+i+" is " + profile.username)
@@ -58,6 +59,8 @@ function validate(entry_type, entry, validation_props) {
   if( validation_props.MetaTag ) { //validating a putmeta
     return true;
   } else { //validating a commit or put
+    debug("source:" + validation_props.Sources + " agent:" + entry.agent_id)
+    debug("key: " + App.Agent.Key)
     return validation_props.Sources[0] == entry.agent_id
   }
 }

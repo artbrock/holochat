@@ -37,7 +37,7 @@
   {
     "Zome":"profiles",
     "FnName":"register",
-    "Input":"{\"username\":\"cnorris\", \"firstName\":\"Chuck\", \"lastName\":\"Norris\", \"email\":\"chuck@norris.com\"}",
+    "Input":"{\"username\":\"cnorris\", \"firstName\":\"Chuck\", \"lastName\":\"Norris\", \"email\":\"artbrock@geekgene.com\"}",
     "Output":"\"%h%\"",
     "Err":""
   },
